@@ -8,6 +8,7 @@
     :me="me"
     :players="players"
     @setMe="setMe"
+    @setPlayers="setPlayers"
   />
 </template>
 
@@ -21,6 +22,7 @@ export default {
   name: 'PlayArea',
   components: { DoobleCard, PlayerList },
   mixins: [GenerateCardsMixin],
+  emits: ['increaseScore', 'foundMatch'],
   data: function () {
     return {
       cards: [],
@@ -47,6 +49,7 @@ export default {
       console.log(`Clicked on ${symbol}`);
       if (this.checkOthersForSymbol(symbol).length > 1) {
         this.me.score++;
+        this.$emit('foundMatch');
       } else {
         this.me.score--;
       }
@@ -70,7 +73,6 @@ export default {
       this.players = players;
     },
   },
-  emits: ['increaseScore'],
   mounted() {
     this.setRandomCards();
   },

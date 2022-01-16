@@ -3,14 +3,33 @@
 <script>
 export default {
   name: 'PeerManager',
+  emits: ['newCards', 'setPlayers', 'setMe'],
+
   methods: {
     setMyId(id) {
       this.me.id = id;
     },
+    sendMsg(action = '', data = {}) {
+      // send a msg to host
+      this.hostConn.send({
+        do: action,
+        data: data,
+        auth: this.me,
+      });
+    },
+    broadcast(action = '', data = {}) {
+      this.conns.forEach((conn) => {
+        conn.send({
+          do: action,
+          data: data,
+          auth: this.me,
+        });
+      });
+    },
     connect(id) {
       this.hostConn = this.$peer.connect(id, { serialization: 'json' });
       this.hostConn.on('open', () => {
-        this.hostConn.send({ do: 'newPlayer', player: this.me });
+        this.sendMsg('newPlayer', { player: this.me });
       });
       this.setupHostListeners(this.hostConn);
     },
@@ -18,7 +37,7 @@ export default {
       if (this.hostConn === null) {
         return;
       }
-      this.hostConn.send({ do: 'updatePlayer', player: player });
+      this.sendMsg('updatePlayer', { player: player });
     },
     setupPlayerListeners(conn) {
       // conn is a player, i am a host
@@ -60,24 +79,21 @@ export default {
       conn.on('error', console.error);
     },
     hostNewPlayer(data) {
-      this.players.push(data.player);
-      this.conns.forEach((conn) => {
-        conn.send({
-          do: 'updatePlayers',
-          players: [this.me, ...this.players],
-        });
-      });
+      this.players.push(data.data.player);
+      this.broadcast('updatePlayers', { players: [this.me, ...this.players] });
     },
     playerUpdatePlayers(data) {
-      this.players = data.players.filter((player) => {
-        return player.id !== this.me.id;
-      });
+      this.$emit(
+        'setPlayers',
+        data.data.players.filter((player) => {
+          return player.id !== this.me.id;
+        })
+      );
     },
     playerNewCards(data) {
       this.$emit('newCards', data.cards);
     },
   },
-  emits: ['newCards'],
   data() {
     return {
       conns: [],

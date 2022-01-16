@@ -29,6 +29,7 @@ export default {
   border-radius: 1.5em;
   padding: 1em;
   background-color: var(--lighter-bg);
+  margin: 1em;
 }
 
 .symbol {
