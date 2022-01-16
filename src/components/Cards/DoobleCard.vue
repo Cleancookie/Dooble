@@ -5,8 +5,10 @@
       :key="symbol"
       class="symbol"
       v-on:click="$emit('clicked', symbol)"
-      >{{ symbol }}</span
+      :style="`transform: scale(${getIconScale()})`"
     >
+      {{ symbol }}
+    </span>
   </div>
 </template>
 
@@ -14,6 +16,12 @@
 export default {
   props: {
     card: {},
+  },
+  methods: {
+    getIconScale() {
+      const scale = Math.random() * 2;
+      return scale > 0.75 ? scale : 0.75;
+    },
   },
 };
 </script>
