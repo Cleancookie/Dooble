@@ -1,4 +1,5 @@
 const { createApp } = require('vue');
-import App from "./App.vue";
+window.collect = require('collect.js');
+import App from './App.vue';
 
-createApp(App).mount("#app");
+createApp(App).mount('#app');

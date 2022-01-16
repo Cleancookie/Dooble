@@ -1,11 +1,13 @@
 <template>
   <div>
-    <span v-for="symbol in symbols" :key="symbol">{{ symbol }}</span>
+    <span v-for="symbol in card" :key="symbol">{{ symbol }}</span>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['symbols'],
+  props: {
+    card: [],
+  },
 };
 </script>

@@ -6,6 +6,7 @@
 
 <script>
 import PlayArea from './components/PlayArea.vue';
+import HelloWorld from './components/HelloWorld';
 
 export default {
   name: 'App',
