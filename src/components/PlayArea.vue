@@ -85,6 +85,6 @@ export default {
   width: 100%;
   align-items: center;
   justify-content: space-evenly;
-  background-color: var(--white);
+  background-color: var(--bg);
 }
 </style>
