@@ -2,7 +2,13 @@
   <div class="play-area">
     <DoobleCard v-for="card in cards" :card="card" @clicked="symbolClicked" />
   </div>
-  <PlayerList :cards="cards" @newCards="setCards" />
+  <PlayerList
+    :cards="cards"
+    @newCards="setCards"
+    :me="me"
+    :players="players"
+    @setMe="setMe"
+  />
 </template>
 
 <script>
@@ -18,6 +24,13 @@ export default {
   data: function () {
     return {
       cards: [],
+      me: {
+        id: null,
+        name: 'Me',
+        host: false,
+        score: 0,
+      },
+      players: [],
     };
   },
   computed: {
@@ -30,10 +43,14 @@ export default {
       return collect(this.allCards()).shuffle().first();
     },
     symbolClicked(symbol) {
+      // Game logic check
       console.log(`Clicked on ${symbol}`);
       if (this.checkOthersForSymbol(symbol).length > 1) {
-        this.setRandomCards();
+        this.me.score++;
+      } else {
+        this.me.score--;
       }
+      this.setRandomCards();
     },
     setRandomCards() {
       this.cards = [this.getRandomCard(), this.getRandomCard()];
@@ -46,7 +63,14 @@ export default {
     setCards(cards) {
       this.cards = cards;
     },
+    setMe(me) {
+      this.me = me;
+    },
+    setPlayers(players) {
+      this.players = players;
+    },
   },
+  emits: ['increaseScore'],
   mounted() {
     this.setRandomCards();
   },

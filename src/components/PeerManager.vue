@@ -34,7 +34,7 @@ export default {
           let actionHandler =
             'host' + data.do[0].toUpperCase() + data.do.slice(1);
           console.log(`Doing: ${actionHandler}`);
-          this[actionHandler](data);
+          this[actionHandler](data); // lowkey dangerous
         } catch (e) {
           console.error(e);
         }
@@ -51,7 +51,7 @@ export default {
           let actionHandler =
             'player' + data.do[0].toUpperCase() + data.do.slice(1);
           console.log(`Doing: ${actionHandler}`);
-          this[actionHandler](data);
+          this[actionHandler](data); // lowkey dangerous
         } catch (e) {
           console.error(e);
         }

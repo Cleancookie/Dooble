@@ -22,20 +22,16 @@ export default {
       type: Array,
       requred: true,
     },
+    me: {
+      type: Object,
+    },
+    players: {
+      type: Array,
+    },
   },
+  emits: ['setMe'],
   mounted() {
     this.setMyId(this.$peer.id);
-  },
-  data() {
-    return {
-      me: {
-        id: null,
-        name: 'Me',
-        host: false,
-        score: 0,
-      },
-      players: [],
-    };
   },
   computed: {
     allPlayers() {
@@ -49,7 +45,9 @@ export default {
     },
     setName() {
       let name = window.prompt('Your new nickname');
-      this.me.name = name;
+      let newMe = this.me;
+      newMe.name = name;
+      this.$emit('setMe', newMe);
       this.updatePlayer(this.me);
     },
   },
