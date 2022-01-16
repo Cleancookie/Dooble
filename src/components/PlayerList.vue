@@ -23,7 +23,6 @@ export default {
         host: false,
       },
       players: [],
-      hostConn: null,
     };
   },
   computed: {
@@ -34,14 +33,12 @@ export default {
   methods: {
     joinPlayerPrompt() {
       let id = window.prompt('Please enter their ID');
-      this.hostConn = this.$peer.connect(id);
-      this.hostConn.send(
-        JSON.stringify({ msg: 'new-player', player: this.me })
-      );
+      this.connect(id);
     },
     setName() {
       let name = window.prompt('Your new nickname');
       this.me.name = name;
+      this.updatePlayer(this.me);
     },
   },
 };
