@@ -15,7 +15,6 @@
 <script>
 import GenerateCardsMixin from './Cards/GenerateCardsMixin.vue';
 import DoobleCard from './Cards/DoobleCard.vue';
-import HelloWorld from './HelloWorld.vue';
 import PlayerList from './PlayerList.vue';
 
 export default {
@@ -49,7 +48,6 @@ export default {
       console.log(`Clicked on ${symbol}`);
       if (this.checkOthersForSymbol(symbol).length > 1) {
         this.me.score++;
-        this.$emit('foundMatch');
       } else {
         this.me.score--;
       }
