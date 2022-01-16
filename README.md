@@ -1,3 +1,3 @@
-# vue-xebkw1
+# Dooble
 
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/vue-xebkw1)
+A match-it game with emojis
