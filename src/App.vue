@@ -1,7 +1,5 @@
 <template>
-  <div id="app">
-    <PlayArea />
-  </div>
+  <PlayArea />
 </template>
 
 <script>
@@ -16,4 +14,13 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+body {
+  --black: black;
+  --white: white;
+
+  --lighter-bg: rgb(252, 252, 252);
+  --light-bg: rgb(232, 232, 232);
+  --dark-bg: rgb(42, 42, 42);
+}
+</style>

@@ -1,6 +1,7 @@
 <template>
-  <button @click="setRandomCards">Generate random cards</button>
-  <DoobleCard v-for="card in cards" :card="card" @clicked="symbolClicked" />
+  <div class="play-area">
+    <DoobleCard v-for="card in cards" :card="card" @clicked="symbolClicked" />
+  </div>
 </template>
 
 <script>
@@ -41,5 +42,21 @@ export default {
       });
     },
   },
+  mounted() {
+    this.setRandomCards();
+  },
 };
 </script>
+
+<style>
+.play-area {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100vh;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: var(--white);
+}
+</style>
