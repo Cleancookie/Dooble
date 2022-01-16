@@ -4,7 +4,10 @@
   <button @click="setName">Set name</button>
   <ul>
     <li v-for="player in allPlayers">
-      {{ player.name }} ({{ player.id }}) <span v-if="player.host">(host)</span>
+      {{ player.name }} ({{ player.id }})
+      <span v-if="player.host">(host)</span>
+      <span v-if="player.id === me.id">(me)</span>
+      <span>({{ player.score }})</span>
     </li>
   </ul>
 </template>
@@ -23,6 +26,7 @@ export default {
         id: null,
         name: 'Me',
         host: false,
+        score: 0,
       },
       players: [],
     };
