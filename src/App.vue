@@ -1,16 +1,17 @@
 <template>
   <PlayArea />
+  <PlayerList />
 </template>
 
 <script>
 import PlayArea from './components/PlayArea.vue';
-// import PlayerList from './components/PlayerList.vue';
+import PlayerList from './components/PlayerList.vue';
 
 export default {
   name: 'App',
   components: {
     PlayArea,
-    // PlayerList,
+    PlayerList,
   },
 };
 </script>

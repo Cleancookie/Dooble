@@ -54,7 +54,6 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
-  height: 100vh;
   align-items: center;
   justify-content: space-evenly;
   background-color: var(--white);
