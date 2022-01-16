@@ -4,12 +4,13 @@
 
 <script>
 import PlayArea from './components/PlayArea.vue';
-import HelloWorld from './components/HelloWorld';
+// import PlayerList from './components/PlayerList.vue';
 
 export default {
   name: 'App',
   components: {
     PlayArea,
+    // PlayerList,
   },
 };
 </script>

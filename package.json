@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "collect.js": "^4.30.7",
-    "vue": "^3.2.26"
+    "vue": "^3.2.27"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.4.0",
