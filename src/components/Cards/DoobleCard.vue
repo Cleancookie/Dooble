@@ -1,15 +1,19 @@
 <template>
   <div class="card">
-    <span v-for="symbol in card" :key="symbol" class="symbol">{{
-      symbol
-    }}</span>
+    <span
+      v-for="symbol in card"
+      :key="symbol"
+      class="symbol"
+      v-on:click="$emit('clicked', symbol)"
+      >{{ symbol }}</span
+    >
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    card: [],
+    card: {},
   },
 };
 </script>
