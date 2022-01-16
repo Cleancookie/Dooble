@@ -8,11 +8,9 @@ export default {
       this.me.id = id;
     },
     connect(id) {
-      this.hostConn = this.$peer.connect(id);
+      this.hostConn = this.$peer.connect(id, { serialization: 'json' });
       this.hostConn.on('open', () => {
-        this.hostConn.send(
-          JSON.stringify({ do: 'newPlayer', player: this.me })
-        );
+        this.hostConn.send({ do: 'newPlayer', player: this.me });
       });
       this.setupHostListeners(this.hostConn);
     },
@@ -20,16 +18,19 @@ export default {
       if (this.hostConn === null) {
         return;
       }
-      this.hostConn.send(
-        JSON.stringify({ do: 'updatePlayer', player: player })
-      );
+      this.hostConn.send({ do: 'updatePlayer', player: player });
     },
     setupPlayerListeners(conn) {
+      // conn is a player, i am a host
       console.log('Setting up new player connection');
-      conn.on('open', console.log);
+      conn.on('open', () => {
+        conn.send({
+          do: 'newCards',
+          cards: collect(this.cards).toArray(),
+        });
+      });
       conn.on('data', (data) => {
         try {
-          data = JSON.parse(data);
           let actionHandler =
             'host' + data.do[0].toUpperCase() + data.do.slice(1);
           console.log(`Doing: ${actionHandler}`);
@@ -42,11 +43,11 @@ export default {
       conn.on('error', console.error);
     },
     setupHostListeners(conn) {
+      // conn is the host, i am a player
       console.log('Setting up new host connection');
       conn.on('open', console.log);
       conn.on('data', (data) => {
         try {
-          data = JSON.parse(data);
           let actionHandler =
             'player' + data.do[0].toUpperCase() + data.do.slice(1);
           console.log(`Doing: ${actionHandler}`);
@@ -61,12 +62,10 @@ export default {
     hostNewPlayer(data) {
       this.players.push(data.player);
       this.conns.forEach((conn) => {
-        conn.send(
-          JSON.stringify({
-            do: 'updatePlayers',
-            players: [this.me, ...this.players],
-          })
-        );
+        conn.send({
+          do: 'updatePlayers',
+          players: [this.me, ...this.players],
+        });
       });
     },
     playerUpdatePlayers(data) {
@@ -74,7 +73,11 @@ export default {
         return player.id !== this.me.id;
       });
     },
+    playerNewCards(data) {
+      this.$emit('newCards', data.cards);
+    },
   },
+  emits: ['newCards'],
   data() {
     return {
       conns: [],

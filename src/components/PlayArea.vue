@@ -2,16 +2,18 @@
   <div class="play-area">
     <DoobleCard v-for="card in cards" :card="card" @clicked="symbolClicked" />
   </div>
+  <PlayerList :cards="cards" @newCards="setCards" />
 </template>
 
 <script>
 import GenerateCardsMixin from './Cards/GenerateCardsMixin.vue';
 import DoobleCard from './Cards/DoobleCard.vue';
 import HelloWorld from './HelloWorld.vue';
+import PlayerList from './PlayerList.vue';
 
 export default {
   name: 'PlayArea',
-  components: { DoobleCard },
+  components: { DoobleCard, PlayerList },
   mixins: [GenerateCardsMixin],
   data: function () {
     return {
@@ -40,6 +42,9 @@ export default {
       return this.cards.filter((card) => {
         return collect(card).contains(symbol);
       });
+    },
+    setCards(cards) {
+      this.cards = cards;
     },
   },
   mounted() {

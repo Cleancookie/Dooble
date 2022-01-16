@@ -1,5 +1,5 @@
 <template>
-  <p>My ID: {{ me.id }}</p>
+  <p>{{ me.id }}</p>
   <button @click="joinPlayerPrompt">Join Player</button>
   <button @click="setName">Set name</button>
   <ul>
@@ -17,6 +17,12 @@ import PeerManager from './PeerManager';
 export default {
   name: 'PlayerList',
   mixins: [PeerManager],
+  props: {
+    cards: {
+      type: Array,
+      requred: true,
+    },
+  },
   mounted() {
     this.setMyId(this.$peer.id);
   },
