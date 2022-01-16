@@ -3,7 +3,9 @@
   <button @click="joinPlayerPrompt">Join Player</button>
   <button @click="setName">Set name</button>
   <ul>
-    <li v-for="player in allPlayers">{{ player.name }} ({{ player.id }})</li>
+    <li v-for="player in allPlayers">
+      {{ player.name }} ({{ player.id }}) <span v-if="player.host">(host)</span>
+    </li>
   </ul>
 </template>
 
