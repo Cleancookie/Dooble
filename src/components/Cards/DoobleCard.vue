@@ -5,7 +5,6 @@
       :key="symbol"
       class="symbol"
       v-on:click="$emit('clicked', symbol)"
-      :style="`transform: scale(${getIconScale()})`"
     >
       {{ symbol }}
     </span>
@@ -31,7 +30,7 @@ export default {
   display: flex;
   outline: 4px dashed var(--black);
   flex-wrap: wrap;
-  max-width: 22em;
+  max-width: 20em;
   align-items: center;
   align-content: space-evenly;
   border-radius: 1.5em;
@@ -43,15 +42,15 @@ export default {
 .symbol {
   --padding: 1.5rem;
   flex: 1 0 calc(33% - (2 * var(--padding)));
-  font-size: 3em;
+  font-size: 2em;
   padding: var(--padding);
   text-align: center;
   outline: 1px solid transparent;
-  transition: 300ms;
+  transition: 200ms;
   border-radius: 0.25em;
 
   &:hover {
-    background-color: var(--light-bg);
+    transform: scale(1.2);
     cursor: pointer;
   }
 }
